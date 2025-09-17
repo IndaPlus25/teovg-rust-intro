@@ -6,4 +6,4 @@
 
 # Uppgift 2 (avstånd till kanten)
 
-* Börjar jobba på den
+* KLARRRRR!!
