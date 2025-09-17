@@ -1,32 +1,49 @@
-/***
- * Template to a Kattis solution.
- * See: https://open.kattis.com/help/rust
- * Author: Viola Söderlund <violaso@kth.se>
- * Edit: Benjamin Widman <bwidman@kth.se>
- */
-
 use std::io;
-use std::io::prelude::*;
 
-/// Kattis calls main function to run your solution.
+fn disToEdge(r: usize, k: usize, x: usize, y: usize) -> usize {
+    let top = y;
+    let left = x;
+    let right = k - 1 - x;
+    let bottom = r - 1 - y;
+
+    [top, left, right, bottom].iter().copied().min().unwrap()
+}
+
 fn main() {
-    // get standard input stream
-    let input = io::stdin();
+    // hantera kattis input
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let nums: Vec<usize> = input
+        .trim()
+        .split_whitespace()
+        .map(|x| x.parse().unwrap())
+        .collect();
 
-    // Get input lines as a vector of strings
-    // see: https://doc.rust-lang.org/std/io/trait.BufRead.html
-    let mut lines = input.lines()
-        .map(|_line| _line.ok().unwrap())
-        .collect::<Vec<String>>();          // Converts iterator into vector. Not necessary, see example solution.
-    // The map acts on every element in the iterator, getting the value inside the returned Result, assuming the result is Ok(value) and not Err(error_message).
-    // ok() returns an Option, so we unwrap it to get the value inside.
+    let r = nums[0];
+    let k = nums[1];
 
-    /* add code here ... */
-    let radvec = lines[0].split(' ').collect::<Vec<u32>();
-    
-    
-    
+    // skapa 2d vec för att kunna räkna avstånd
+    let mut matris: Vec<Vec<char>> = vec![vec![' '; k]; r];
 
-    eprintln!("Kattis skips this comment!");
-    //println!("Print to standard output.");
+    //^ fick tips för detta, annars gjorde jag en for loop som fyllde varje slot, mycket mer effektivt att göra så här
+
+    for y in 0..r {
+        for x in 0..k {
+            let distance = disToEdge(r, k, x, y);
+            let steps = distance + 1;
+            matris[y][x] = if steps <= 9 {
+                std::char::from_digit(steps as u32, 10).unwrap()
+            } else {
+                '.'
+            };
+        }
+    }
+
+    // skriv ut matrisen
+    for row in matris {
+        for character in row {
+            print!("{}", character);
+        }
+        println!();
+    }
 }

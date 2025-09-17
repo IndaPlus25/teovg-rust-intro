@@ -1,7 +1,9 @@
 # teovg-rust-intro
 
-Uppgift 1 (summera tal)
+# Uppgift 1 (summera tal)
 
-KLAR!!!
+* KLAR!!!
 
-Uppgift 2 (inte säker än)
+# Uppgift 2 (avstånd till kanten)
+
+* Börjar jobba på den
